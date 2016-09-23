@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="customersApp">
+<head>
+    <title>Angular Udemy</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body ng-controller="CustomersController">
+    <h1 ng-cloak>To Do List:</h1>
+    <ul>
+        <div ng-switch on="name.loggedIn">
+            <div ng-switch-when="true">
+                <h1 ng-class="name.status">Welcome {{ name.name }}</h1>
+            </div>
+            <div ng-switch-default>Login</div>
+        </div>
+        <li ng-show="item1">Buy Milk</li>
+        <li ng-show="item2">Buy Beer</li>
+    </ul>
+    <div ng-hide="item1"></div>
+    <div ng-show="name.isVisible">
+    Name: <input type="text" ng-model="name.name" ng-model="item1"> {{ name.name }
+
+    </div>
+    <button ng-click="name.isVisible= true"></button>
+    <br>
+    Remove Milk: <input type="checkbox" ng-model="item1">
+    <br>
+    Remove Beer: <input type="checkbox" ng-model="item2">
+    <br>
+<button ng-click="name='Michelle'">Click Me to change my name</button>
+
+    <hr>
+
+<h2>Customers</h2>
+Filter: <input type="text" ng-model="customersFilter">
+<table>
+    <tr>
+        <th ng-click="doSort('name')">Name</th>
+        <th ng-click="doSort('city')">City</th>
+        <th ng-click="doSort('orderTotal')">Order Total</th>
+        <th ng-click="doSort('joined')">Joined</th>
+    </tr>
+    <tr ng-repeat="cust in customers | filter: customersFilter | orderBy:sortby:reverse">
+        <td>{{ cust.name | uppercase }}</td>
+        <td>{{ cust.city | lowercase }}</td>
+        <td>{{ cust.orderTotal | currency }}</td>
+        <td>{{ cust.joined  | date}}</td>
+    </tr>
+</table>
+    <br>
+    <span>Total Customers: {{ customers.length }}</span>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/customersController.js"></script>
+
+
+</body>
+</html>
