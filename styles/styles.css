@@ -3,3 +3,7 @@
     display: none !important;
     status: red;
 }
+
+th {
+    background-color: gray;
+}

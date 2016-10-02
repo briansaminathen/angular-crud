@@ -1,5 +1,19 @@
 (function() {
-    var CustomersController = function ($scope) {
+    var OrdersController = function($scope, $routeParams) {
+
+        var customerId = $routeParams.customerId;
+        $scope.orders = null;
+
+        function init() {
+            // Search the $scope.customers for the customersId
+            for (var i = 0, len = $scope.customers.length; i < len; i++) {
+                if ($scope.customers[i].id === parseInt(customerId)) {
+                    $scope.orders = $scope.customers[i].orders;
+                }
+            }
+        }
+
+
         $scope.customers = [
             {
                 id: 1,
@@ -7,7 +21,7 @@
                 name: 'John',
                 city: 'Chandler',
                 orderTotal: 9.9956,
-                orders:[
+                orders: [
                     {
                         id: 1,
                         product: 'Shoes',
@@ -49,7 +63,7 @@
                 ]
             },
             {
-                id: 9,
+                id: 4,
                 joined: '1995-03-28',
                 name: 'Dave',
                 city: 'Seattle',
@@ -63,21 +77,15 @@
                 ]
             }
         ];
-        $scope.doSort = function (propName) {
-            $scope.sortby = propName;
-            $scope.reverse = !$scope.reverse;
-        }
+
+        init();
+
 
 
     };
 
-
-
-        CustomersController.$inject = ['$scope'];
+         OrdersController.$inject = ['$scope', '$routeParams'];
 
         angular.module('customersApp')
-            .controller('CustomersController', CustomersController);
-
-
-
-})();
+            .controller('OrdersController', OrdersController);
+}());
